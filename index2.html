@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Три богатыря — комплекс Ежовик, Кордицепс, CBD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            line-height: 1.5;
+            color: white;
+            
+            /* ФОН для всех устройств */
+            background-image: url('images/background.jpg');
+            background-repeat: repeat-y;
+            background-size: 100% auto;
+            background-position: top center;
+            background-attachment: scroll;
+        }
+
+        /* ЭФФЕКТ СТЕКЛА */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(2px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .header, section, .footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ВСЕ ТЕКСТЫ БЕЛЫЕ С ТЕНЯМИ */
+        h1, h2, h3, h4, p, a, .logo, .nav a, .founder-quote, .founder-name, .subhead {
+            color: white !important;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: #0ff;
+            font-weight: 600;
+            font-size: 1.125rem;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            border: 2px solid #0ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #0ff, 0 0 20px rgba(0, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn:hover {
+            background: #0ff;
+            color: #000;
+            box-shadow: 0 0 20px #0ff, 0 0 40px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav a {
+            margin-left: 2rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #a3d8a3 !important;
+        }
+
+        @media (max-width: 768px) {
+            .nav { display: none; }
+        }
+
+        .hero {
+            padding: 80px 0;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .hero-image {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        /* ===== ОБЩИЕ СТИЛИ ДЛЯ СЕТОК ===== */
+        .features, .ingredient-grid, .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .features, .ingredient-grid, .facts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== СТИЛИ ДЛЯ ФЛАКОНОВ ===== */
+        .flacon-card {
+            width: 100%;
+            height: 450px;
+            perspective: 1500px;
+            cursor: pointer;
+        }
+
+        .flacon-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flacon-card:hover .flacon-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flacon-front, .flacon-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .flacon-front {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .flacon-back {
+            background: rgba(0, 20, 30, 0.95);
+            transform: rotateY(180deg);
+            border: 2px solid #0ff;
+            box-shadow: 0 0 30px #0ff;
+            color: white;
+            text-align: center;
+        }
+
+        .flacon-back h3, .flacon-back h4 {
+            color: #0ff !important;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .flacon-back ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        .flacon-back li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .flacon-back li:before {
+            content: '⚡';
+            color: #0ff;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 3D форма флакона */
+        .flacon-3d {
+            position: relative;
+            width: 180px;
+            height: 280px;
+            margin: 20px auto;
+            filter: drop-shadow(0 0 20px currentColor);
+            transition: all 0.3s ease;
+        }
+
+        .flacon-cap {
+            width: 100px;
+            height: 40px;
+            background: linear-gradient(135deg, #444, #222);
+            border-radius: 20px 20px 5px 5px;
+            margin: 0 auto;
+            position: relative;
+            top: 5px;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .flacon-cap:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 15px;
+            background: linear-gradient(135deg, #666, #333);
+            border-radius: 10px;
+            top: -8px;
+            left: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .flacon-body {
+            width: 160px;
+            height: 220px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 40px 40px 20px 20px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(2px);
+        }
+
+        .flacon-liquid {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 70%;
+            transition: height 0.3s;
+        }
+
+        .liquid-blue {
+            background: linear-gradient(135deg, #00ccff, #0066ff);
+            box-shadow: inset 0 0 30px rgba(0,255,255,0.5);
+        }
+
+        .liquid-orange {
+            background: linear-gradient(135deg, #ff9900, #ff5500);
+            box-shadow: inset 0 0 30px rgba(255,165,0,0.5);
+        }
+
+        .liquid-purple {
+            background: linear-gradient(135deg, #cc00ff, #9900ff);
+            box-shadow: inset 0 0 30px rgba(255,0,255,0.5);
+        }
+
+        .flacon-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 5px black;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .flacon-name {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .flacon-desc {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .cap-blue { background: linear-gradient(135deg, #0066cc, #003366); }
+        .cap-orange { background: linear-gradient(135deg, #cc6600, #663300); }
+        .cap-purple { background: linear-gradient(135deg, #6600cc, #330066); }
+
+        .flacon-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 220px;
+            height: 320px;
+            background: radial-gradient(circle at center, rgba(0,255,255,0.3) 0%, transparent 70%);
+            z-index: -1;
+            animation: glowPulse 3s infinite;
+        }
+
+        @keyframes glowPulse {
+            0% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.95); }
+            50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
+            100% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.95); }
+        }
+
+        /* Специально для фактов (другой цвет свечения) */
+        .fact-card .flacon-glow {
+            background: radial-gradient(circle at center, rgba(255,0,255,0.3) 0%, transparent 70%);
+        }
+
+        .founder {
+            padding: 80px 0;
+        }
+
+        .founder .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .founder-photo {
+            background: rgba(139, 107, 77, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .founder-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .founder-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .founder-name {
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .founder .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .order {
+            padding: 80px 0;
+        }
+
+        .order-form {
+            max-width: 500px;
+            margin: 40px auto 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .form-group input:focus {
+            outline: 2px solid #0ff;
+        }
+
+        .order-btn {
+            width: 100%;
+            background: transparent;
+            color: #f0f;
+            border: 2px solid #f0f;
+            box-shadow: 0 0 10px #f0f, 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .order-btn:hover {
+            background: #f0f;
+            color: #000;
+            box-shadow: 0 0 20px #f0f, 0 0 40px rgba(255, 0, 255, 0.5);
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1.5rem; }
+
+        @media (max-width: 768px) {
+            body {
+                background-size: contain !important;
+                background-color: #0f3b1e;
+            }
+            body {
+                background-attachment: scroll !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">⚡ ТРИ БОГАТЫРЯ</a>
+            <nav class="nav">
+                <a href="#about">О комплексе</a>
+                <a href="#ingredients">Состав</a>
+                <a href="#facts">Факты</a>
+                <a href="#order">Заказать</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Комплекс «Три богатыря»:<br>Ежовик, Кордицепс, CBD</h1>
+                <p>Природная мощь для ясного ума, стальной энергии и глубокого спокойствия.</p>
+                <a href="#order" class="btn">Заказать комплекс</a>
+                <p class="mt-2">Бесплатная доставка по Москве от 3 упаковок</p>
+            </div>
+            <div class="hero-image">
+                <img src="images/produkt.jpg" alt="Комплекс Три богатыря">
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 1: ПОЧЕМУ СТОИТ КУПИТЬ (ФЛАКОНЫ) -->
+    <section class="problem" id="about">
+        <div class="container">
+            <h2 class="text-center">Почему стоит купить все три экстракта сразу?</h2>
+            <div class="subhead text-center">Каждый экстракт работает на своем фронте, а вместе они закрывают все потребности организма</div>
+            
+            <div class="features">
+                <!-- Флакон 1: Ежовик -->
+                <div class="flacon-card">
+                    <div class="flacon-inner">
+                        <div class="flacon-front">
+                            <div class="flacon-glow"></div>
+                            <div class="flacon-3d">
+                                <div class="flacon-cap cap-blue"></div>
+                                <div class="flacon-body">
+                                    <div class="flacon-liquid liquid-blue"></div>
+                                    <div class="flacon-label">
+                                        <span class="flacon-name">ЕЖОВИК</span>
+                                        <span class="flacon-desc">для мозга</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flacon-back">
+                            <h3>Ежовик</h3>
+                            <ul>
+                                <li>Стимулирует рост нервных клеток</li>
+                                <li>Улучшает память и фокус</li>
+                                <li>30% полисахаридов</li>
+                                <li>Рекомендация: 1 мл в день</li>
+                                <li>Курс: 1-2 месяца</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Флакон 2: Кордицепс -->
+                <div class="flacon-card">
+                    <div class="flacon-inner">
+                        <div class="flacon-front">
+                            <div class="flacon-glow"></div>
+                            <div class="flacon-3d">
+                                <div class="flacon-cap cap-orange"></div>
+                                <div class="flacon-body">
+                                    <div class="flacon-liquid liquid-orange"></div>
+                                    <div class="flacon-label">
+                                        <span class="flacon-name">КОРДИЦЕПС</span>
+                                        <span class="flacon-desc">для энергии</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flacon-back">
+                            <h3>Кордицепс</h3>
+                            <ul>
+                                <li>Повышает выносливость на 30%</li>
+                                <li>Насыщает кислородом</li>
+                                <li>7% кордицепина</li>
+                                <li>Рекомендация: 1 мл утром</li>
+                                <li>Эффект через 7-10 дней</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Флакон 3: CBD -->
+                <div class="flacon-card">
+                    <div class="flacon-inner">
+                        <div class="flacon-front">
+                            <div class="flacon-glow"></div>
+                            <div class="flacon-3d">
+                                <div class="flacon-cap cap-purple"></div>
+                                <div class="flacon-body">
+                                    <div class="flacon-liquid liquid-purple"></div>
+                                    <div class="flacon-label">
+                                        <span class="flacon-name">CBD</span>
+                                        <span class="flacon-desc">для спокойствия</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flacon-back">
+                            <h3>CBD</h3>
+                            <ul>
+                                <li>Снимает тревожность</li>
+                                <li>Улучшает качество сна</li>
+                                <li>10% CBD (0% THC)</li>
+                                <li>Рекомендация: 1 мл вечером</li>
+                                <li>Без психоэффекта</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center" style="font-size: 1.2rem; margin-top: 30px;">
+                <strong>Закажите комплекс "Три богатыря" — получите все три экстракта в одном заказе!</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- БЛОК 2: ИНГРЕДИЕНТЫ (ФЛАКОНЫ) -->
+    <section class="ingredients" id="ingredients">
+        <div class="container">
+            <h2 class="text-center">Три силы природы в одном курсе</h2>
+            <div class="subhead text-center">Каждый экстракт работает сам по себе, но вместе они дают максимальный результат</div>
+            
+            <div class="ingredient-grid">
+                <!-- Флакон 1: Ежовик -->
+                <div class="flacon-card">
+                    <div class="flacon-inner">
+                        <div class="flacon-front">
+                            <div class="flacon-glow"></div>
+                            <div class="flacon-3d">
+                                <div class="flacon-cap cap-blue"></div>
+                                <div class="flacon-body">
+                                    <div class="flacon-liquid liquid-blue"></div>
+                                    <div class="flacon-label">
+                                        <span class="flacon-name">ЕЖОВИК</span>
+                                        <span class="flacon-desc">30% полисахаридов</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flacon-back">
+                            <h4>Состав</h4>
+                            <ul>
+                                <li>Экстракт ежовика 30:1</li>
+                                <li>Очищенная вода</li>
+                                <li>Натуральный консервант</li>
+                                <li>Объем: 30 мл</li>
+                                <li>Органическое сырье</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Флакон 2: Кордицепс -->
+                <div class="flacon-card">
+                    <div class="flacon-inner">
+                        <div class="flacon-front">
+                            <div class="flacon-glow"></div>
+                            <div class="flacon-3d">
+                                <div class="flacon-cap cap-orange"></div>
+                                <div class="flacon-body">
+                                    <div class="flacon-liquid liquid-orange"></div>
+                                    <div class="flacon-label">
+                                        <span class="flacon-name">КОРДИЦЕПС</span>
+                                        <span class="flacon-desc">7% кордицепина</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flacon-back">
+                            <h4>Состав</h4>
+                            <ul>
+                                <li>Экстракт кордицепса 20:1</li>
+                                <li>Очищенная вода</li>
+                                <li>Натуральный консервант</li>
+                                <li>Объем: 30 мл</li>
+                                <li>Органическое сырье</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Флакон 3: CBD -->
+                <div class="flacon-card">
+                    <div class="flacon-inner">
+                        <div class="flacon-front">
+                            <div class="flacon-glow"></div>
+                            <div class="flacon-3d">
+                                <div class="flacon-cap cap-purple"></div>
+                                <div class="flacon-body">
+                                    <div class="flacon-liquid liquid-purple"></div>
+                                    <div class="flacon-label">
+                                        <span class="flacon-name">CBD</span>
+                                        <span class="flacon-desc">10% CBD</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flacon-back">
+                            <h4>Состав</h4>
+                            <ul>
+                                <li>Экстракт CBD широкого спектра</li>
+                                <li>Масло MCT (кокосовое)</li>
+                                <li>Натуральные терпены</li>
+                                <li>Объем: 30 мл (1000 мг CBD)</li>
+                                <li>0% THC</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center" style="margin-top: 30px; font-size: 1.2rem;">
+                <strong>Принимайте комплексом — получите полный эффект!</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- БЛОК 3: ФАКТЫ (ФЛАКОНЫ) -->
+    <section class="facts" id="facts">
+        <div class="container">
+            <h2 class="text-center">Почему наши экстракты лучше</h2>
+            
+            <div class="facts-grid">
+                <!-- Факт 1 -->
+                <div class="flacon-card fact-card">
+                    <div class="flacon-inner">
+                        <div class="flacon-front">
+                            <div class="flacon-glow"></div>
+                            <div style="text-align: center; padding: 20px;">
+                                <span style="font-size: 4rem; color: #0ff; text-shadow: 0 0 20px #0ff;">1</span>
+                                <h3 style="margin-top: 20px;">Двойной контроль</h3>
+                            </div>
+                        </div>
+                        <div class="flacon-back">
+                            <h4>Проверка качества</h4>
+                            <ul>
+                                <li>Тестирование сырья</li>
+                                <li>Анализ готового продукта</li>
+                                <li>Проверка на тяжелые металлы</li>
+                                <li>Микробиология</li>
+                                <li>Сертификаты доступны</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Факт 2 -->
+                <div class="flacon-card fact-card">
+                    <div class="flacon-inner">
+                        <div class="flacon-front">
+                            <div class="flacon-glow"></div>
+                            <div style="text-align: center; padding: 20px;">
+                                <span style="font-size: 4rem; color: #0ff; text-shadow: 0 0 20px #0ff;">2</span>
+                                <h3 style="margin-top: 20px;">Высокая концентрация</h3>
+                            </div>
+                        </div>
+                        <div class="flacon-back">
+                            <h4>Концентрации</h4>
+                            <ul>
+                                <li>Ежовик: 30% полисахаридов</li>
+                                <li>Кордицепс: 7% кордицепина</li>
+                                <li>CBD: 10% (1000 мг)</li>
+                                <li>Без разбавителей</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Факт 3 -->
+                <div class="flacon-card fact-card">
+                    <div class="flacon-inner">
+                        <div class="flacon-front">
+                            <div class="flacon-glow"></div>
+                            <div style="text-align: center; padding: 20px;">
+                                <span style="font-size: 4rem; color: #0ff; text-shadow: 0 0 20px #0ff;">3</span>
+                                <h3 style="margin-top: 20px;">Честный состав</h3>
+                            </div>
+                        </div>
+                        <div class="flacon-back">
+                            <h4>Только натуральное</h4>
+                            <ul>
+                                <li>Без ароматизаторов</li>
+                                <li>Без усилителей вкуса</li>
+                                <li>Без ГМО</li>
+                                <li>Без сахара</li>
+                                <li>Без спирта</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="founder">
+        <div class="container">
+            <div class="founder-photo">
+                <img src="images/ya.jpg" alt="Основатель">
+            </div>
+            <div>
+                <div class="founder-quote">«Я собрал идеальную формулу для себя и своей семьи. Теперь делюсь ей с вами».</div>
+                <p class="founder-name">— [Ваше Имя], основатель</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="order" id="order">
+        <div class="container">
+            <h2 class="text-center">Закажите комплекс «Три богатыря»</h2>
+            <div class="subhead text-center">Менеджер позвонит вам в течение 15 минут</div>
+
+            <div class="order-form">
+                <form action="/order.php" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Ваш телефон" required>
+                    </div>
+                    <button type="submit" class="btn order-btn">Заказать</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Три богатыря</p>
+            <p class="mt-2">Москва, доставка по России</p>
+        </div>
+    </footer>
+
+    <script>
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        document.body.style.backgroundPositionY = (scrolled * 0.3) + 'px';
+    });
+    </script>
+</body>
+</html>
