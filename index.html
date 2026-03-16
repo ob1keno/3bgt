@@ -435,6 +435,18 @@
         .text-center { text-align: center; }
         .mt-2 { margin-top: 0.5rem; }
         .mt-4 { margin-top: 1.5rem; }
+            /* Специально для мобильных телефонов */
+@media (max-width: 768px) {
+    body {
+        background-size: contain !important;
+        background-color: #0f3b1e; /* Темно-зеленый фон под картинку */
+    }
+    
+    /* Убираем параллакс на мобилке (для плавности) */
+    body {
+        background-attachment: scroll !important;
+    }
+}
     </style>
 </head>
 <body>
