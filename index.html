@@ -93,24 +93,28 @@
 
         .btn {
             display: inline-block;
-            background: #2e6b3e;
-            color: white;
-            font-weight: 600;
-            font-size: 1.125rem;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-shadow: 1px 1px 3px black;
+    background: transparent;  /* Прозрачный фон */
+    color: #0ff;              /* Неоново-голубой текст */
+    font-weight: 600;
+    font-size: 1.125rem;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    border: 2px solid #0ff;   /* Неоновая рамка */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #0ff, 0 0 20px rgba(0, 255, 255, 0.3); /* Свечение */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
         }
 
         .btn:hover {
-            background: #1f5437;
-            transform: translateY(-2px);
+            background: #0ff;          /* Заливка при наведении */
+    color: #000;               /* Черный текст */
+    box-shadow: 0 0 20px #0ff, 0 0 40px rgba(0, 255, 255, 0.5);
+    transform: translateY(-2px);
         }
 
         .header {
@@ -410,15 +414,16 @@
 
         .order-btn {
             width: 100%;
-            background: #2e6b3e;
-            color: white;
-            font-size: 1.2rem;
-            padding: 15px;
-            border: none;
+    background: transparent;
+    color: #f0f;               /* Неоново-розовый для формы */
+    border: 2px solid #f0f;
+    box-shadow: 0 0 10px #f0f, 0 0 20px rgba(255, 0, 255, 0.3);
         }
 
         .order-btn:hover {
-            background: #1f5437;
+           background: #f0f;
+    color: #000;
+    box-shadow: 0 0 20px #f0f, 0 0 40px rgba(255, 0, 255, 0.5);
         }
 
         .footer {
