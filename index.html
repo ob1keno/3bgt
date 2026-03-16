@@ -486,6 +486,7 @@
             margin-top: 15px;
         }
     </style>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>    
 </head>
 <body>
     <header class="header">
@@ -755,7 +756,21 @@
             </div>
         </div>
     </section>
-
+    <!-- БЛОК С 3D-ФЛАКОНОМ -->
+<section style="padding: 80px 0;">
+    <div class="container">
+        <h2 class="text-center">⚡ 3D-флакон (тест)</h2>
+        <div style="display: flex; justify-content: center;">
+            <model-viewer
+                src="flakon.glb"
+                alt="3D модель флакона"
+                auto-rotate
+                camera-controls
+                style="width: 400px; height: 400px; background: rgba(0,0,0,0.3); border-radius: 20px;">
+            </model-viewer>
+        </div>
+    </div>
+</section>
     <section class="founder">
         <div class="container">
             <div class="founder-photo">
