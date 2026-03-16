@@ -15,15 +15,16 @@
         }
 
         body {
-            font-family: "Inter", sans-serif;
-            line-height: 1.5;
-            color: white; /* ТЕПЕРЬ ТЕКСТ БЕЛЫЙ */
-            
-            /* ФОН С ПАРАЛЛАКСОМ (будет управляться JS) */
-            background-image: url('images/background.jpg'); /* ← ВАША КАРТИНКА */
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: right center;
+            ffont-family: "Inter", sans-serif;
+    line-height: 1.5;
+    color: white;
+    
+    /* ФОН для всех устройств */
+    background-image: url('images/background.jpg');
+    background-repeat: repeat-y;        /* Повторять по вертикали */
+    background-size: 100% auto;         /* Ширина 100%, высота автоматически */
+    background-position: top center;
+    background-attachment: scroll;       /* ФОН ПРОКРУЧИВАЕТСЯ С КОНТЕНТОМ */
         }
 
         /* ЭФФЕКТ СТЕКЛА (размытие фона) */
