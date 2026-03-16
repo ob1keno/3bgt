@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Три богатыря — комплекс Ежовик, Кордицепс, CBD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            line-height: 1.5;
+            color: white;
+            
+            /* ФОН для всех устройств */
+            background-image: url('images/background.jpg');
+            background-repeat: repeat-y;        /* Повторять по вертикали */
+            background-size: 100% auto;         /* Ширина 100%, высота автоматически */
+            background-position: top center;
+            background-attachment: scroll;       /* ФОН ПРОКРУЧИВАЕТСЯ С КОНТЕНТОМ */
+        }
+
+        /* ЭФФЕКТ СТЕКЛА (размытие фона) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3); /* Цвет вуали (0.2 = 20% темноты) */
+            backdrop-filter: blur(2px);      /* РАЗМЫТИЕ! */
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Чтобы контент был поверх размытия */
+        .header, section, .footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ВСЕ ТЕКСТЫ БЕЛЫЕ С ТЕНЯМИ */
+        h1, h2, h3, p, a, .logo, .nav a, .feature-card, .fact-card, .ingredient-content, .founder-quote, .founder-name, .subhead {
+            color: white !important;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5); /* Черные тени */
+        }
+
+        /* Специально для карточек, чтобы текст внутри был белым */
+        .feature-card p, .feature-card h3, .feature-card .feature-icon,
+        .fact-card p, .fact-card h4,
+        .ingredient-content p, .ingredient-content h4 {
+            color: white !important;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        .btn {
+            display: inline-block;
+            background: transparent;  /* Прозрачный фон */
+            color: #0ff;              /* Неоново-голубой текст */
+            font-weight: 600;
+            font-size: 1.125rem;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            border: 2px solid #0ff;   /* Неоновая рамка */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #0ff, 0 0 20px rgba(0, 255, 255, 0.3); /* Свечение */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: #0ff;          /* Заливка при наведении */
+            color: #000;               /* Черный текст */
+            box-shadow: 0 0 20px #0ff, 0 0 40px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3); /* Полупрозрачный черный */
+            backdrop-filter: blur(5px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav a {
+            margin-left: 2rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #a3d8a3 !important;
+        }
+
+        @media (max-width: 768px) {
+            .nav { display: none; }
+        }
+
+        .hero {
+            padding: 80px 0;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .hero-image {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        @media (max-width: 768px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .problem {
+            padding: 80px 0;
+        }
+
+        .problem h2 {
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .problem .subhead {
+            text-align: center;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 60px;
+            font-weight: 500;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .ingredients {
+            padding: 80px 0;
+        }
+
+        .ingredient-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .facts {
+            padding: 80px 0;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        @media (max-width: 768px) {
+            .features { grid-template-columns: 1fr; }
+            .ingredient-grid { grid-template-columns: 1fr; }
+            .facts-grid { grid-template-columns: 1fr; }
+        }
+
+        .founder {
+            padding: 80px 0;
+        }
+
+        .founder .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .founder-photo {
+            background: rgba(139, 107, 77, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin: 0 auto;
+            border: 2px solid rgba(255,255,255,0.3);
+            text-shadow: 2px 2px 5px black;
+        }
+
+        .founder-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .founder-name {
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .founder .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .order {
+            padding: 80px 0;
+        }
+
+        .order-form {
+            max-width: 500px;
+            margin: 40px auto 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .form-group input:focus {
+            outline: 2px solid #2e6b3e;
+        }
+
+        .order-btn {
+            width: 100%;
+            background: transparent;
+            color: #f0f;               /* Неоново-розовый для формы */
+            border: 2px solid #f0f;
+            box-shadow: 0 0 10px #f0f, 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .order-btn:hover {
+            background: #f0f;
+            color: #000;
+            box-shadow: 0 0 20px #f0f, 0 0 40px rgba(255, 0, 255, 0.5);
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            color: white;
+        }
+
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1.5rem; }
+
+        /* Специально для мобильных телефонов */
+        @media (max-width: 768px) {
+            body {
+                background-size: contain !important;
+                background-color: #0f3b1e; /* Темно-зеленый фон под картинку */
+            }
+            
+            /* Убираем параллакс на мобилке (для плавности) */
+            body {
+                background-attachment: scroll !important;
+            }
+        }
+
+        /* ===== СТИЛИ ДЛЯ ФЛИП-КАРТОЧЕК ===== */
+        .feature-card, .ingredient-item, .fact-card {
+            background: transparent !important;
+            backdrop-filter: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            perspective: 1500px;
+            height: 400px;
+        }
+
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 20px;
+        }
+
+        .feature-card:hover .flip-inner,
+        .ingredient-item:hover .flip-inner,
+        .fact-card:hover .flip-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-front, .flip-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            overflow-y: auto;
+        }
+
+        .flip-front {
+            color: white;
+        }
+
+        .flip-back {
+            background: rgba(0, 20, 30, 0.9);
+            color: white;
+            transform: rotateY(180deg);
+            border: 2px solid #0ff;
+            box-shadow: 0 0 30px #0ff;
+        }
+
+        .flip-back h3, .flip-back h4 {
+            color: #0ff !important;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .flip-back p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: white !important;
+        }
+
+        .flip-back ul {
+            text-align: left;
+            color: white;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .flip-back li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .flip-back li:before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: #0ff;
+        }
+
+        .feature-icon, .ingredient-img {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .feature-icon img, .ingredient-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .fact-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: rgba(0, 255, 255, 0.3);
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            line-height: 1;
+        }
+
+        /* Стили для обратной стороны фактов */
+        .fact-card .flip-back ul {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">⚡ ТРИ БОГАТЫРЯ</a>
+            <nav class="nav">
+                <a href="#about">О комплексе</a>
+                <a href="#ingredients">Состав</a>
+                <a href="#facts">Факты</a>
+                <a href="#order">Заказать</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Комплекс «Три богатыря»:<br>Ежовик, Кордицепс, CBD</h1>
+                <p>Природная мощь для ясного ума, стальной энергии и глубокого спокойствия.</p>
+                <a href="#order" class="btn">Заказать комплекс</a>
+                <p class="mt-2">Бесплатная доставка по Москве от 3 упаковок</p>
+            </div>
+            <div class="hero-image">
+                <img src="images/produkt.jpg" alt="Комплекс Три богатыря" style="width: 100%; border-radius: 20px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК С ФЛИП-КАРТОЧКАМИ (ПОЧЕМУ СТОИТ КУПИТЬ) -->
+    <section class="problem" id="about">
+        <div class="container">
+            <h2>Почему стоит купить все три экстракта сразу?</h2>
+            <div class="subhead">Каждый экстракт работает на своем фронте, а вместе они закрывают все потребности организма</div>
+            
+            <div class="features">
+                <!-- Карточка 1: Ежовик -->
+                <div class="feature-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="feature-icon">
+                                <img src="images/ez2.jpg" alt="Ежовик">
+                            </div>
+                            <h3>Ежовик — для мозга</h3>
+                            <p>Восстанавливает нейросвязи, улучшает память и ясность мышления.</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Подробнее о Ежовике</h3>
+                            <ul>
+                                <li>Стимулирует рост нервных клеток (NGF)</li>
+                                <li>Улучшает концентрацию и фокус</li>
+                                <li>Защищает от возрастных изменений</li>
+                                <li>Рекомендация: 1 мл в день</li>
+                                <li>Курс: 1-2 месяца</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Карточка 2: Кордицепс -->
+                <div class="feature-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="feature-icon">
+                                <img src="images/kord2.jpg" alt="Кордицепс">
+                            </div>
+                            <h3>Кордицепс — для энергии</h3>
+                            <p>Повышает выносливость, убирает упадок сил, насыщает кислородом.</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Подробнее о Кордицепсе</h3>
+                            <ul>
+                                <li>Увеличивает выносливость на 30%</li>
+                                <li>Насыщает кровь кислородом</li>
+                                <li>Помогает при астении и усталости</li>
+                                <li>Рекомендация: 1 мл утром</li>
+                                <li>Эффект через 7-10 дней</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Карточка 3: CBD -->
+                <div class="feature-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="feature-icon">
+                                <img src="images/medi.jpg" alt="CBD">
+                            </div>
+                            <h3>CBD — для спокойствия</h3>
+                            <p>Снимает тревогу, нормализует сон, убирает воспаления.</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Подробнее о CBD</h3>
+                            <ul>
+                                <li>Снимает тревожность без "камня"</li>
+                                <li>Улучшает качество и глубину сна</li>
+                                <li>Снимает мышечное напряжение</li>
+                                <li>Рекомендация: 1 мл вечером</li>
+                                <li>Без психоактивного эффекта (0% THC)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center" style="font-size: 1.2rem; margin-top: 30px;">
+                <strong>Закажите комплекс "Три богатыря" — получите все три экстракта в одном заказе!</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- БЛОК С ФЛИП-КАРТОЧКАМИ (ИНГРЕДИЕНТЫ) -->
+    <section class="ingredients" id="ingredients">
+        <div class="container">
+            <h2 class="text-center">Три силы природы в одном курсе</h2>
+            <div class="subhead text-center">Каждый экстракт работает сам по себе, но вместе они дают максимальный результат</div>
+            
+            <div class="ingredient-grid">
+                <!-- Карточка 1: Ежовик -->
+                <div class="ingredient-item">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="ingredient-img">
+                                <img src="images/ezhovik.jpg" alt="Ежовик">
+                            </div>
+                            <div class="ingredient-content">
+                                <h4>Ежовик гребенчатый</h4>
+                                <p>Жидкий экстракт для ясности ума</p>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Состав экстракта</h4>
+                            <ul>
+                                <li>100% натуральный экстракт</li>
+                                <li>Без спирта и добавок</li>
+                                <li>Концентрация: 30% полисахаридов</li>
+                                <li>Объем: 30 мл</li>
+                                <li>Сырье: органические грибы</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Карточка 2: Кордицепс -->
+                <div class="ingredient-item">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="ingredient-img">
+                                <img src="images/kord.jpg" alt="Кордицепс">
+                            </div>
+                            <div class="ingredient-content">
+                                <h4>Кордицепс</h4>
+                                <p>Жидкий экстракт для энергии</p>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Состав экстракта</h4>
+                            <ul>
+                                <li>100% натуральный экстракт</li>
+                                <li>Без спирта и добавок</li>
+                                <li>Концентрация: 7% кордицепина</li>
+                                <li>Объем: 30 мл</li>
+                                <li>Сырье: органические грибы</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Карточка 3: CBD -->
+                <div class="ingredient-item">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="ingredient-img">
+                                <img src="images/cbd.jpg" alt="CBD">
+                            </div>
+                            <div class="ingredient-content">
+                                <h4>CBD (каннабидиол)</h4>
+                                <p>Жидкий экстракт для спокойствия</p>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Состав экстракта</h4>
+                            <ul>
+                                <li>100% натуральный экстракт</li>
+                                <li>Без спирта и добавок</li>
+                                <li>Концентрация: 10% CBD</li>
+                                <li>Объем: 30 мл</li>
+                                <li>0% THC (без психоэффекта)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center" style="margin-top: 30px; font-size: 1.2rem;">
+                <strong>Принимайте комплексом — получите полный эффект!</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- БЛОК С ФЛИП-КАРТОЧКАМИ (ФАКТЫ) -->
+    <section class="facts" id="facts">
+        <div class="container">
+            <h2 class="text-center">Почему наши экстракты лучше</h2>
+            
+            <div class="facts-grid">
+                <!-- Факт 1 -->
+                <div class="fact-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <span class="fact-number">1</span>
+                            <h4>Двойной контроль качества</h4>
+                            <p>Каждая партия каждого экстракта тестируется в независимой лаборатории.</p>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Как мы проверяем</h4>
+                            <ul>
+                                <li>Тестирование сырья на входе</li>
+                                <li>Анализ готового экстракта</li>
+                                <li>Проверка на тяжелые металлы</li>
+                                <li>Микробиологический контроль</li>
+                                <li>Сертификаты доступны по запросу</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Факт 2 -->
+                <div class="fact-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <span class="fact-number">2</span>
+                            <h4>Высокая концентрация</h4>
+                            <p>В каждом флаконе — максимальная концентрация активных веществ.</p>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Концентрации:</h4>
+                            <ul>
+                                <li>Ежовик: 30% полисахаридов</li>
+                                <li>Кордицепс: 7% кордицепина</li>
+                                <li>CBD: 10% (1000 мг во флаконе)</li>
+                                <li>Без разбавителей</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Факт 3 -->
+                <div class="fact-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <span class="fact-number">3</span>
+                            <h4>Честный состав</h4>
+                            <p>Никаких ароматизаторов, усилителей и добавок — только чистый экстракт.</p>
+                        </div>
+                        <div class="flip-back">
+                            <h4>В составе только:</h4>
+                            <ul>
+                                <li>Экстракт гриба/растения</li>
+                                <li>Очищенная вода</li>
+                                <li>Натуральный консервант (лимонная кислота)</li>
+                                <li>Без спирта, сахара, ГМО</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="founder">
+        <div class="container">
+            <div class="founder-photo">
+                <img src="images/ya.jpg" alt="Основатель" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div>
+                <div class="founder-quote">«Я собрал идеальную формулу для себя и своей семьи. Теперь делюсь ей с вами».</div>
+                <p class="founder-name">— [Ваше Имя], основатель</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="order" id="order">
+        <div class="container">
+            <h2 class="text-center">Закажите комплекс «Три богатыря»</h2>
+            <div class="subhead text-center">Менеджер позвонит вам в течение 15 минут</div>
+
+            <div class="order-form">
+                <form action="/order.php" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Ваш телефон" required>
+                    </div>
+                    <button type="submit" class="btn order-btn">Заказать</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Три богатыря</p>
+            <p class="mt-2">Москва, доставка по России</p>
+        </div>
+    </footer>
+
+    <!-- JS ПАРАЛЛАКС -->
+    <script>
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        document.body.style.backgroundPositionY = (scrolled * 0.3) + 'px';
+    });
+    </script>
+</body>
+</html>
