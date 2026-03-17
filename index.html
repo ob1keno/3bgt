@@ -494,11 +494,16 @@
         <h2 class="text-center">⚡ 3D-модель человека (тест)</h2>
         <div style="display: flex; justify-content: center;">
             <model-viewer
-                src="chelovek3.glb"
-                alt="3D модель человека"
-                auto-rotate
-                camera-controls
-                style="width: 500px; height: 500px; background: rgba(255,255,255,0.1); border-radius: 20px;">
+               src="chelovek.glb"
+    alt="Анимированный человек"
+    camera-controls
+    autoplay
+    loop
+    animation-name="*"
+    animation-crossfade-duration="0.5"
+    exposure="1.2"
+    shadow-intensity="0.5"
+    style="width: 500px; height: 500px; background: #f0f0f0; border-radius: 20px;">
             </model-viewer>
         </div>
         <p class="text-center mt-4">Крутится, можно таскать мышкой</p>
