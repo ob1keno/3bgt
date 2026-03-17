@@ -2,129 +2,244 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тест: Боец vs Стресс</title>
     
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Model Viewer -->
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
         body {
             font-family: 'Inter', sans-serif;
-            background: #0a0f0f;
+            background: #1a2a2a;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
         
+        /* ОСНОВНОЙ БЛОК */
         .fighter-test {
             position: relative;
             width: 100%;
-            max-width: 390px;
+            max-width: 1200px;
             height: 700px;
-            margin: 0 auto;
-            background: linear-gradient(145deg, #1a2a2a 0%, #0f1a1a 100%);
-            border-radius: 40px;
+            background: linear-gradient(145deg, #1e2f2f 0%, #142020 100%);
+            border-radius: 60px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
         
+        /* КОНТЕЙНЕР МОДЕЛИ */
         .fighter-container {
             position: absolute;
-            left: -30px;
+            left: 50%;
             top: 50%;
-            transform: translateY(-50%);
-            width: 320px;
-            height: 450px;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 600px;
             z-index: 10;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 255, 0.3));
         }
         
         model-viewer {
             width: 100%;
             height: 100%;
+            --poster-color: transparent;
+            --progress-bar-color: transparent;
             background: transparent;
         }
         
-        /* УМЕНЬШЕННЫЕ БЛОКИ */
+        /* ОБЩИЕ СТИЛИ ДЛЯ БЛОКОВ */
         .target {
             position: absolute;
-            right: 25px;
-            min-width: 130px;  /* УМЕНЬШИЛ */
+            min-width: 160px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 10px 15px;  /* УМЕНЬШИЛ */
+            border-radius: 40px;
+            padding: 15px 25px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             border: 3px solid;
             opacity: 0;
-            animation: targetAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             z-index: 20;
+            transition: all 0.3s;
         }
         
+        /* БЛОК СЛЕВА (СТРЕСС) */
         .target-1 {
-            top: 25%;
+            left: 15%;
+            top: 30%;
             border-color: #ff4d4d;
+            animation: targetLeft 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             animation-delay: 1s;
         }
         
+        /* БЛОК СПРАВА (ТРЕВОГА) */
         .target-2 {
-            top: 50%;
+            right: 15%;
+            top: 60%;
             border-color: #4da6ff;
-            animation-delay: 2.5s;
+            animation: targetRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation-delay: 2s;
         }
         
-        @keyframes targetAppear {
-            0% { opacity: 0; transform: translateX(100px) scale(0.3); }
-            40% { opacity: 1; transform: translateX(-15px) scale(1.1); }
-            70% { transform: translateX(5px) scale(0.98); }
-            100% { opacity: 1; transform: translateX(0) scale(1); }
+        /* АНИМАЦИИ ВЫЛЕТА */
+        @keyframes targetLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px) scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(10px) scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
         }
         
-        /* УМЕНЬШЕННЫЙ ТЕКСТ */
+        @keyframes targetRight {
+            0% {
+                opacity: 0;
+                transform: translateX(100px) scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-10px) scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+        
+        /* ТЕКСТ ВНУТРИ БЛОКОВ */
         .target-title {
             display: block;
-            font-size: 1.2rem;  /* УМЕНЬШИЛ */
+            font-size: 1.4rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 2px;
-            line-height: 1.2;
-            margin-bottom: 3px;
+            margin-bottom: 5px;
         }
         
         .target-value {
             display: block;
-            font-size: 1.6rem;  /* УМЕНЬШИЛ */
+            font-size: 2rem;
             font-weight: 800;
             line-height: 1;
         }
         
-        .target-1 .target-value { color: #ff4d4d; }
-        .target-2 .target-value { color: #4da6ff; }
+        .target-1 .target-value {
+            color: #ff4d4d;
+            text-shadow: 0 0 15px rgba(255,77,77,0.5);
+        }
         
-        .test-note {
+        .target-2 .target-value {
+            color: #4da6ff;
+            text-shadow: 0 0 15px rgba(77,166,255,0.5);
+        }
+        
+        /* ЭФФЕКТ ВСПЫШКИ ПРИ УДАРЕ */
+        .punch-effect {
             position: absolute;
-            bottom: 20px;
-            left: 0;
             width: 100%;
-            text-align: center;
-            color: rgba(255,255,255,0.3);
-            font-size: 0.8rem;
-            z-index: 30;
+            height: 100%;
+            pointer-events: none;
+            z-index: 15;
+        }
+        
+        .punch-effect::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            left: 45%;
+            top: 35%;
+            transform: rotate(-10deg);
+            opacity: 0;
+            animation: punchLine 0.3s ease-out forwards;
+            animation-delay: 1s;
+        }
+        
+        .punch-effect::after {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            right: 45%;
+            top: 65%;
+            transform: rotate(15deg);
+            opacity: 0;
+            animation: punchLine 0.3s ease-out forwards;
+            animation-delay: 2s;
+        }
+        
+        @keyframes punchLine {
+            0% { opacity: 0; transform: scale(0.3) rotate(-10deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(-10deg); }
+            100% { opacity: 0; transform: scale(1.5) rotate(-10deg); }
+        }
+        
+        /* МОБИЛЬНАЯ ВЕРСИЯ */
+        @media (max-width: 768px) {
+            .fighter-test {
+                height: 600px;
+                border-radius: 30px;
+            }
+            
+            .fighter-container {
+                width: 280px;
+                height: 420px;
+            }
+            
+            .target {
+                min-width: 130px;
+                padding: 10px 15px;
+            }
+            
+            .target-1 {
+                left: 10%;
+                top: 25%;
+            }
+            
+            .target-2 {
+                right: 10%;
+                top: 55%;
+            }
+            
+            .target-title {
+                font-size: 1.1rem;
+            }
+            
+            .target-value {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="fighter-test">
-        <!-- КОНТЕЙНЕР С МОДЕЛЬЮ -->
+        <!-- МОДЕЛЬ ПО ЦЕНТРУ -->
         <div class="fighter-container">
             <model-viewer
+                id="fighterModel"
                 src="chelovek.glb"
                 alt=""
                 camera-controls
@@ -134,20 +249,7 @@
                 style="width: 100%; height: 100%; background: transparent;">
             </model-viewer>
         </div>
-    </div>
-
-    <style>
-        /* Дополнительно прячем возможные подписи */
-        model-viewer {
-            --poster-color: transparent;
-            --progress-bar-color: transparent;
-        }
         
-        model-viewer::part(default-progress-bar) {
-            display: none;
-        }
-    </style>
-</body>       
         <!-- БЛОКИ -->
         <div class="target target-1">
             <span class="target-title">СТРЕСС</span>
@@ -159,28 +261,40 @@
             <span class="target-value">-62%</span>
         </div>
         
-        <div class="test-note">
-            Боец слева | Удары с задержкой 1с и 2.5с
-        </div>
+        <!-- ЭФФЕКТЫ УДАРОВ -->
+        <div class="punch-effect"></div>
     </div>
     
     <script>
-        // Цикл для повторения анимации
+        // СИНХРОНИЗАЦИЯ С АНИМАЦИЕЙ МОДЕЛИ
+        const model = document.getElementById('fighterModel');
         const target1 = document.querySelector('.target-1');
         const target2 = document.querySelector('.target-2');
+        const punchEffect = document.querySelector('.punch-effect');
         
-        setInterval(() => {
+        // Функция сброса и запуска анимаций
+        function resetAnimations() {
+            // Сброс блоков
             target1.style.animation = 'none';
-            target1.offsetHeight;
-            target1.style.animation = 'targetAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+            target2.style.animation = 'none';
+            punchEffect.style.animation = 'none';
+            
+            // Форсированный reflow
+            void target1.offsetWidth;
+            
+            // Запуск с новыми таймингами
+            target1.style.animation = 'targetLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
             
             setTimeout(() => {
-                target2.style.animation = 'none';
-                target2.offsetHeight;
-                target2.style.animation = 'targetAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
-            }, 1500);
-            
-        }, 5000);
+                target2.style.animation = 'targetRight 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+            }, 1000); // ЗАДЕРЖКА МЕЖДУ УДАРАМИ (подбери под анимацию модели)
+        }
+        
+        // Запускаем цикл каждые 4 секунды
+        setInterval(resetAnimations, 4000);
+        
+        // Первый запуск
+        setTimeout(resetAnimations, 500);
     </script>
 </body>
 </html>
