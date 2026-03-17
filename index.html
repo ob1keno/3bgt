@@ -30,7 +30,6 @@
             padding: 20px;
         }
         
-        /* ОСНОВНОЙ БЛОК */
         .fighter-test {
             position: relative;
             width: 100%;
@@ -40,6 +39,43 @@
             border-radius: 60px;
             overflow: hidden;
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+        
+        /* ИНДИКАТОР ЗАГРУЗКИ */
+        .loader-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #1e2f2f 0%, #142020 100%);
+            z-index: 100;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loader-text {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-top: 4px solid #0ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         /* КОНТЕЙНЕР МОДЕЛИ */
@@ -52,6 +88,12 @@
             height: 600px;
             z-index: 10;
             filter: drop-shadow(0 0 30px rgba(0, 255, 255, 0.3));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .fighter-container.loaded {
+            opacity: 1;
         }
         
         model-viewer {
@@ -62,7 +104,7 @@
             background: transparent;
         }
         
-        /* ОБЩИЕ СТИЛИ ДЛЯ БЛОКОВ */
+        /* БЛОКИ (изначально скрыты) */
         .target {
             position: absolute;
             min-width: 160px;
@@ -75,59 +117,34 @@
             border: 3px solid;
             opacity: 0;
             z-index: 20;
-            transition: all 0.3s;
+            transition: opacity 0.3s;
         }
         
-        /* БЛОК СЛЕВА (СТРЕСС) */
         .target-1 {
             left: 15%;
             top: 30%;
             border-color: #ff4d4d;
-            animation: targetLeft 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            animation-delay: 1s;
         }
         
-        /* БЛОК СПРАВА (ТРЕВОГА) */
         .target-2 {
             right: 15%;
             top: 60%;
             border-color: #4da6ff;
-            animation: targetRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            animation-delay: 2s;
         }
         
         /* АНИМАЦИИ ВЫЛЕТА */
         @keyframes targetLeft {
-            0% {
-                opacity: 0;
-                transform: translateX(-100px) scale(0.3);
-            }
-            50% {
-                opacity: 1;
-                transform: translateX(10px) scale(1.1);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-            }
+            0% { opacity: 0; transform: translateX(-100px) scale(0.3); }
+            50% { opacity: 1; transform: translateX(10px) scale(1.1); }
+            100% { opacity: 1; transform: translateX(0) scale(1); }
         }
         
         @keyframes targetRight {
-            0% {
-                opacity: 0;
-                transform: translateX(100px) scale(0.3);
-            }
-            50% {
-                opacity: 1;
-                transform: translateX(-10px) scale(1.1);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-            }
+            0% { opacity: 0; transform: translateX(100px) scale(0.3); }
+            50% { opacity: 1; transform: translateX(-10px) scale(1.1); }
+            100% { opacity: 1; transform: translateX(0) scale(1); }
         }
         
-        /* ТЕКСТ ВНУТРИ БЛОКОВ */
         .target-title {
             display: block;
             font-size: 1.4rem;
@@ -154,49 +171,6 @@
             text-shadow: 0 0 15px rgba(77,166,255,0.5);
         }
         
-        /* ЭФФЕКТ ВСПЫШКИ ПРИ УДАРЕ */
-        .punch-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 15;
-        }
-        
-        .punch-effect::before {
-            content: '';
-            position: absolute;
-            width: 150px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #fff, transparent);
-            left: 45%;
-            top: 35%;
-            transform: rotate(-10deg);
-            opacity: 0;
-            animation: punchLine 0.3s ease-out forwards;
-            animation-delay: 1s;
-        }
-        
-        .punch-effect::after {
-            content: '';
-            position: absolute;
-            width: 180px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #fff, transparent);
-            right: 45%;
-            top: 65%;
-            transform: rotate(15deg);
-            opacity: 0;
-            animation: punchLine 0.3s ease-out forwards;
-            animation-delay: 2s;
-        }
-        
-        @keyframes punchLine {
-            0% { opacity: 0; transform: scale(0.3) rotate(-10deg); }
-            50% { opacity: 1; transform: scale(1.2) rotate(-10deg); }
-            100% { opacity: 0; transform: scale(1.5) rotate(-10deg); }
-        }
-        
         /* МОБИЛЬНАЯ ВЕРСИЯ */
         @media (max-width: 768px) {
             .fighter-test {
@@ -214,16 +188,6 @@
                 padding: 10px 15px;
             }
             
-            .target-1 {
-                left: 10%;
-                top: 25%;
-            }
-            
-            .target-2 {
-                right: 10%;
-                top: 55%;
-            }
-            
             .target-title {
                 font-size: 1.1rem;
             }
@@ -236,8 +200,14 @@
 </head>
 <body>
     <div class="fighter-test">
+        <!-- ИНДИКАТОР ЗАГРУЗКИ -->
+        <div class="loader-wrapper" id="loader">
+            <div class="loader-text">ЗАГРУЗКА БОЙЦА...</div>
+            <div class="loader-spinner"></div>
+        </div>
+        
         <!-- МОДЕЛЬ ПО ЦЕНТРУ -->
-        <div class="fighter-container">
+        <div class="fighter-container" id="fighterContainer">
             <model-viewer
                 id="fighterModel"
                 src="chelovek.glb"
@@ -250,51 +220,68 @@
             </model-viewer>
         </div>
         
-        <!-- БЛОКИ -->
-        <div class="target target-1">
+        <!-- БЛОКИ (изначально скрыты) -->
+        <div class="target target-1" id="target1">
             <span class="target-title">СТРЕСС</span>
             <span class="target-value">-47%</span>
         </div>
         
-        <div class="target target-2">
+        <div class="target target-2" id="target2">
             <span class="target-title">ТРЕВОГА</span>
             <span class="target-value">-62%</span>
         </div>
-        
-        <!-- ЭФФЕКТЫ УДАРОВ -->
-        <div class="punch-effect"></div>
     </div>
     
     <script>
-        // СИНХРОНИЗАЦИЯ С АНИМАЦИЕЙ МОДЕЛИ
         const model = document.getElementById('fighterModel');
-        const target1 = document.querySelector('.target-1');
-        const target2 = document.querySelector('.target-2');
-        const punchEffect = document.querySelector('.punch-effect');
+        const loader = document.getElementById('loader');
+        const fighterContainer = document.getElementById('fighterContainer');
+        const target1 = document.getElementById('target1');
+        const target2 = document.getElementById('target2');
         
-        // Функция сброса и запуска анимаций
-        function resetAnimations() {
-            // Сброс блоков
+        // ПОКАЗЫВАЕМ МОДЕЛЬ И БЛОКИ ПОСЛЕ ЗАГРУЗКИ
+        model.addEventListener('load', () => {
+            console.log('Модель загружена!');
+            
+            // Прячем загрузчик
+            loader.style.opacity = '0';
+            
+            // Показываем модель
+            fighterContainer.classList.add('loaded');
+            
+            // Ждем окончания анимации загрузчика, потом убираем его
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+            
+            // Запускаем анимацию блоков
+            setTimeout(() => {
+                startTargetAnimation();
+            }, 300); // Небольшая задержка после появления модели
+        });
+        
+        // АНИМАЦИЯ БЛОКОВ
+        function startTargetAnimation() {
+            // Сброс анимаций
             target1.style.animation = 'none';
             target2.style.animation = 'none';
-            punchEffect.style.animation = 'none';
             
             // Форсированный reflow
             void target1.offsetWidth;
             
-            // Запуск с новыми таймингами
+            // Запускаем первую анимацию
             target1.style.animation = 'targetLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
             
+            // Запускаем вторую с задержкой
             setTimeout(() => {
                 target2.style.animation = 'targetRight 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
-            }, 1000); // ЗАДЕРЖКА МЕЖДУ УДАРАМИ (подбери под анимацию модели)
+            }, 1000);
+            
+            // Зацикливаем каждые 4 секунды
+            setTimeout(() => {
+                startTargetAnimation();
+            }, 4000);
         }
-        
-        // Запускаем цикл каждые 4 секунды
-        setInterval(resetAnimations, 4000);
-        
-        // Первый запуск
-        setTimeout(resetAnimations, 500);
     </script>
 </body>
 </html>
